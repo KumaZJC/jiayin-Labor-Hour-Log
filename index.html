@@ -149,7 +149,7 @@
 
             <div class="mt-auto pt-4 border-t border-slate-200/50 dark:border-slate-800/50 flex items-center justify-between">
                 <div class="flex items-center gap-2 cursor-pointer" onclick="switchTab('profile')">
-                    <img id="user-avatar-pc" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&h=80&q=80" class="w-9 h-9 rounded-full object-cover ring-2 ring-primary/20" alt="Avatar">
+                  <img id="user-avatar-pc" src="" data-src="2.jpg" class="w-9 h-9 rounded-full object-cover ring-2 ring-primary/20" alt="Avatar">
                     <div class="text-left">
                         <p class="text-xs font-semibold" id="profile-name-pc">JiaYing</p>
                         <p class="text-[10px] text-slate-400">lucidata</p>
@@ -497,7 +497,7 @@
             <section id="panel-profile" class="page-panel hidden-panel max-w-2xl mx-auto space-y-6">
                 <div class="glass p-8 rounded-apple flex flex-col items-center text-center">
                     <div class="relative mb-4 group">
-                        <img id="profile-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=160&h=160&q=80" class="w-24 h-24 rounded-full object-cover ring-4 ring-primary/20" alt="Avatar">
+                      <img id="profile-avatar" src="" data-src="2.jpg" class="w-24 h-24 rounded-full object-cover ring-4 ring-primary/20" alt="Avatar">
                         <label class="absolute inset-0 bg-black/40 rounded-full flex items-center justify-center text-white text-xs cursor-pointer opacity-0 group-hover:opacity-100 transition-all">
                             <i class="fa-solid fa-camera mr-1"></i> Edit
                             <input type="file" class="hidden" accept="image/*" onchange="updateProfilePicture(event)">
@@ -590,6 +590,15 @@
 
             // 启动毫秒级时间以及会议提醒轮询器
             setInterval(checkReminders, 1000);
+// 在页面加载时，给头像强制戴上“时间戳面具”，骗过浏览器缓存
+const timestamp = Date.now(); // 获取当前毫秒数，如 1719876543210
+
+const pcAvatar = document.getElementById('user-avatar-pc');
+const profileAvatar = document.getElementById('profile-avatar');
+
+if (pcAvatar) pcAvatar.src = `2.jpg?t=${timestamp}`;
+if (profileAvatar) profileAvatar.src = `2.jpg?t=${timestamp}`;
+
         });
 
         function initDatabase() {
